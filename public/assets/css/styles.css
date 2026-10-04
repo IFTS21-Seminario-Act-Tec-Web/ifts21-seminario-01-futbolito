@@ -843,6 +843,12 @@ a {
   color: #727b70;
 }
 
+/* Efecto al pasar el cursor */
+.ft-wa a.ft-wa-link:hover,
+.ft-wa a.ft-wa-content-link:hover {
+  color: #25d366; /* Verde característico de WhatsApp */
+}
+
 .ft-wa .bi { font-size: 23px; color: #879f7d; }
 .ft-wa small { display: block; font-size: 9px; }
 
