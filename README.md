@@ -71,3 +71,4 @@ uvicorn main:app --reload
 FastAPI servirá el mismo frontend desde `public/`. Los endpoints se agregarán en `src/routes/` a medida que avance el proyecto.
 
 > **Importante:** el código base no es una solución final. Las simulaciones y mensajes `PRÓXIMO PASO` están puestos intencionalmente para convertirse en tareas de sprint.
+Configuración de trabajo: Diego Acciardi
