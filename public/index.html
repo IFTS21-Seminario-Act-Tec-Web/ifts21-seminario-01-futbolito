@@ -246,7 +246,7 @@
               <div><strong>+500</strong><span>Equipos activos</span></div>
               <div><strong>6</strong><span>Canchas disponibles</span></div>
             </div>
-            <a class="ft-text-link" href="#contacto">
+            <a class="ft-text-link" id="btn-conoce-mas" href="#contacto">
               Conocé más sobre Futbolito <i class="bi bi-arrow-right"></i>
             </a>
           </div>
@@ -538,22 +538,36 @@
       </div>
     </section>
 
+    
+<!-- HU-011: Ventana informativa de Futbolito -->
+<div id="modal-conoce-mas" class="ft-modal" aria-hidden="true">
+    <div class="ft-modal-contenido" role="dialog" aria-modal="true" aria-labelledby="modal-titulo">
 
-        <!-- HU-011: Conocé más sobre Futbolito -->
-        <section id="conoce-mas" class="container py-5">
-            <h2>Conocé más sobre Futbolito</h2>
-            <p>
-                Futbolito es un complejo deportivo pensado para disfrutar
-                del fútbol con amigos. Contamos con canchas para compartir
-                partidos y vivir una experiencia deportiva.
-            </p>
-        </section>
+        <button id="cerrar-modal-conoce-mas"
+                class="ft-modal-cerrar"
+                type="button"
+                aria-label="Cerrar ventana">
+            &times;
+        </button>
 
-    <!-- FOOTER -->
-    <footer class="ft-footer">
+        <span class="ft-eyebrow">Nuestra historia</span>
+        <h2 id="modal-titulo">Conocé más sobre Futbolito</h2>
+
+        <p>
+            Futbolito es un complejo deportivo pensado para disfrutar
+            del fútbol con amigos. Contamos con canchas para compartir
+            partidos y vivir una experiencia deportiva.
+        </p>
+
+        <p>
+            Estamos trabajando para ofrecer más información sobre
+            nuestras instalaciones, servicios y actividades.
+        </p>
+
+    </div>
+</div>
 
   </main>
-
 
   <!-- =====================================================
        FOOTER
@@ -601,6 +615,8 @@
 
   <!-- JS personalizado Futbolito -->
   <script src="assets/js/main.js"></script>
+
+
 
 </body>
 </html>
