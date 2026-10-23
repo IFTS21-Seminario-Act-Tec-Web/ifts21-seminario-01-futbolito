@@ -144,25 +144,114 @@ reservationDemo?.addEventListener('click', () => {
 //
 // Ver también: src/routes/contact.py (FastAPI router)
 
+
 const contactForm = document.getElementById('contactForm');
-const formMessage  = document.getElementById('formMessage');
+const formMessage = document.getElementById('formMessage');
 
-contactForm?.addEventListener('submit', (event) => {
+contactForm?.addEventListener('submit', async (event) => {
+    event.preventDefault();
 
-  // Prevenimos el envío real hasta tener el backend
-  event.preventDefault();
+    if (!contactForm.checkValidity()) {
+        contactForm.reportValidity();
+        return;
+    }
 
-  // checkValidity() verifica: required, minlength, type="email", etc.
-  if (!contactForm.checkValidity()) {
-    // reportValidity() muestra los mensajes nativos bajo cada campo
-    contactForm.reportValidity();
-    return;
-  }
+    const data = Object.fromEntries(new FormData(contactForm).entries());
 
-  // Formulario válido: mostramos confirmación
-  if (formMessage) {
-    formMessage.textContent = '✓ Mensaje preparado correctamente. En la etapa de backend se enviará a FastAPI.';
-  }
+    if (formMessage) {
+        formMessage.textContent = 'Enviando consulta...';
+    }
 
-  contactForm.reset();
+    try {
+        const response = await fetch('http://127.0.0.1:8000/api/contact', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });
+
+        const result = await response.json();
+
+        if (!response.ok) {
+            throw new Error(
+                result.detail || 'No se pudo guardar el contacto.'
+            );
+        }
+
+        if (formMessage) {
+            formMessage.textContent =
+                '¡Consulta guardada correctamente! Abriendo WhatsApp...';
+        }
+
+        const nombre = data.nombre || '';
+        const email = data.email || '';
+        const asunto = data.asunto || '';
+        const mensaje = data.mensaje || '';
+
+        const textoWhatsApp =
+            `Hola, soy ${nombre}.\n` +
+            `Email: ${email}\n` +
+            `Asunto: ${asunto}\n` +
+            `Mensaje: ${mensaje}`;
+
+        const telefono = 1123435413;
+        const urlWhatsApp =
+            `https://wa.me/${telefono}?text=${encodeURIComponent(textoWhatsApp)}`;
+
+        window.open(urlWhatsApp, '_blank', 'noopener,noreferrer');
+
+        contactForm.reset();
+
+    } catch (error) {
+        console.error('Error al enviar el contacto:', error);
+
+        if (formMessage) {
+            formMessage.textContent =
+                'No se pudo enviar la consulta. Verificá que FastAPI esté funcionando e intentá nuevamente.';
+        }
+    }
+});
+
+// HU-011: Botón "Conocé más sobre Futbolito"
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    const boton = document.getElementById("btn-conoce-mas");
+    const modal = document.getElementById("modal-conoce-mas");
+    const cerrar = document.getElementById("cerrar-modal-conoce-mas");
+
+    if (!boton || !modal || !cerrar) {
+        console.error("HU-011: No se encontró el botón, el modal o el botón de cierre.");
+        return;
+    }
+
+    // Abrir la ventana al pulsar el botón del medio
+    boton.addEventListener("click", function (evento) {
+        evento.preventDefault();
+        modal.classList.add("ft-modal-visible");
+        modal.setAttribute("aria-hidden", "false");
+    });
+
+    // Cerrar la ventana con la X
+    cerrar.addEventListener("click", function () {
+        modal.classList.remove("ft-modal-visible");
+        modal.setAttribute("aria-hidden", "true");
+    });
+
+    // Cerrar al pulsar fuera del cuadro
+    modal.addEventListener("click", function (evento) {
+        if (evento.target === modal) {
+            modal.classList.remove("ft-modal-visible");
+            modal.setAttribute("aria-hidden", "true");
+        }
+    });
+
+    // Cerrar al pulsar Escape
+    document.addEventListener("keydown", function (evento) {
+        if (evento.key === "Escape") {
+            modal.classList.remove("ft-modal-visible");
+            modal.setAttribute("aria-hidden", "true");
+        }
+    });
 });
