@@ -282,15 +282,20 @@ a {
    Nuestras clases ft-btn-* añaden la paleta de Futbolito.
    ────────────────────────────────────────────────────────── */
 .ft-btn {
-  min-height: 48px;
-  padding: 0 19px;
-  font-size: 12px;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: .04em;
-  border-radius: 10px;
-  border: 0;
-  transition: transform .2s ease, background .2s ease;
+    min-height: 48px;
+    padding: 0 19px;
+    font-size: 12px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+    border-radius: 10px;
+    border: 0;
+    transition: transform .2s ease, background .2s ease;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
 }
 
 .ft-btn:hover { transform: translateY(-2px); }
@@ -1025,4 +1030,103 @@ a {
     animation: none !important;
     transition: none !important;
   }
+}
+/* HU-011: Ventana informativa */
+.ft-modal[hidden] {
+    display: none !important;
+}
+
+.ft-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(5px);
+}
+
+.ft-modal.ft-modal-visible {
+    display: flex;
+}    
+
+.ft-modal-contenido {
+    position: relative;
+    width: 100%;
+    max-width: 650px;
+    max-height: 85vh;
+    overflow-y: auto;
+    padding: 38px;
+    border: 1px solid rgba(177, 239, 48, 0.35);
+    border-radius: 18px;
+    background: #171b17;
+    color: #f5f5f0;
+    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.45);
+}
+
+.ft-modal-contenido h2 {
+    margin: 14px 35px 20px 0;
+    color: #b1ef30;
+    font-size: clamp(26px, 4vw, 36px);
+}
+
+.ft-modal-contenido h3 {
+    color: #b1ef30;
+}
+
+.ft-modal-contenido p {
+    line-height: 1.8;
+    color: #deded8;
+}
+
+.ft-modal-cerrar {
+    position: absolute;
+    top: 12px;
+    right: 18px;
+    border: 0;
+    background: transparent;
+    color: #fff;
+    font-size: 32px;
+    cursor: pointer;
+}
+
+.ft-modal-cerrar:hover {
+    color: #b1ef30;
+}
+
+.ft-modal-datos {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+    margin: 28px 0;
+}
+
+.ft-modal-datos div {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.ft-modal-datos strong {
+    color: #b1ef30;
+    font-size: 28px;
+}
+
+.ft-modal-datos span {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+@media (max-width: 520px) {
+    .ft-modal-contenido {
+        padding: 28px 22px;
+    }
+
+    .ft-modal-datos {
+        grid-template-columns: 1fr;
+        gap: 14px;
+    }
 }
